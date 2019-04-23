@@ -43,9 +43,9 @@ class Calculator():
             return rect_angle[0]
     def getzeros(self, a, b, c):
         if (b**2-4*a*c) >= 0:
-            print("Zeros are : {} and {}".format((-b+math.sqrt(b**2-4*a*c))/2*a, (-b-math.sqrt(b**2-4*a*c))/2*a))
+            return("Zeros are : {} and {}".format((-b+math.sqrt(b**2-4*a*c))/2*a, (-b-math.sqrt(b**2-4*a*c))/2*a))
         else:
-            print("Complex answer")
+            return("Complex answer")
 
 if __name__ == "__main__":
     ARGS=parseall()
