@@ -1,9 +1,11 @@
-import math, argparse, numpy
+import math, argparse, numpy, decimal
+from fractions import Fraction
 def parseall():
     parser = argparse.ArgumentParser(description="Calculator")
     parser.add_argument("-a", "--angle", metavar="Float",default=None, dest='angle', help="L'angle à convertir, il faut définir l'unité après la valeur (deg ou rad)")
     parser.add_argument("-dp", "--dotproduct",nargs='+',default=None, type= tuple, dest='dproduct', help='Calcule le produit scalaire, prends des vecteurs en entrée')
     parser.add_argument("-q", "--quadratic",nargs='+',default=None, dest='quad',type=float,help="Calcule les zéros d'une fonction quadratique")
+    parser.add_argument("-f", "--fraction",metavar="Float", default=None, dest='fraction', type=float, help="Calcule la fraction associée à un chiffre decimal")
     return parser.parse_args()
 
 
@@ -11,6 +13,8 @@ class Calculator():
     def __init__(self):
         self.memory = 0
         self.pi = math.pi
+    def getfraction(self, decimal):
+        return str(Fraction(decimal))
     def getcrossproduct(self):
         pass
     def getdotproduct(self):
@@ -42,13 +46,18 @@ class Calculator():
         else:
             return rect_angle[0]
     def getzeros(self, a, b, c):
-        if (b**2-4*a*c) >= 0:
-            print("Zeros are : {} and {}".format((-b+math.sqrt(b**2-4*a*c))/2*a, (-b-math.sqrt(b**2-4*a*c))/2*a))
+        radical = b**2-4*a*c
+        denum = 2*a
+        reel = -b/denum
+        if radical >= 0:
+            print("Zeros are : {} and {}".format((-b+math.sqrt(radical))/denum, (-b-math.sqrt(radical))/denum))
+        elif radical < 0 and len(str(math.sqrt(abs(radical))).split('.')[1]) <= 1:
+            print("Zeros are complex and are : {} + {} i and {} - {} i".format(reel, abs(radical)/denum, reel, abs(radical)/denum))
         else:
-            print("Complex answer")
+            print("Zeros are complex and are : {} + √{}/{} i and {} - √{}/{} i".format(reel, abs(radical), denum, reel, abs(radical), denum))
 
 if __name__ == "__main__":
-    ARGS=parseall()
+    ARGS = parseall()
     calc = Calculator()
     if ARGS.angle is not None:
         calc.getangle(ARGS.angle)
@@ -56,3 +65,5 @@ if __name__ == "__main__":
         calc.getdotproduct()
     elif ARGS.quad is not None:
         calc.getzeros(ARGS.quad[0], ARGS.quad[1], ARGS.quad[2])
+    elif ARGS.fraction is not None:
+        calc.getfraction(ARGS.fraction)
