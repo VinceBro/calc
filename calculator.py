@@ -14,7 +14,7 @@ class Calculator():
         self.memory = 0
         self.pi = math.pi
     def getfraction(self, decimal):
-        return str(Fraction(decimal))
+        return decimal.as_integer_ratio()
     def getcrossproduct(self):
         pass
     def getdotproduct(self):
@@ -29,7 +29,7 @@ class Calculator():
         elif "deg" in str(angle):
             print("Angle : {} is {} rad".format(angle, calc.degtorad(angle)))
         else:
-            print("y dude")
+            print("Specify rad or deg")
     def degtorad(self, angle):
         return(2*self.pi*self.extractfloat(angle)/360)
     def radtodeg(self, angle):
@@ -55,8 +55,7 @@ class Calculator():
             print("Zeros are complex and are : {} + {} i and {} - {} i".format(reel, abs(radical)/denum, reel, abs(radical)/denum))
         else:
             print("Zeros are complex and are : {} + √{}/{} i and {} - √{}/{} i".format(reel, abs(radical), denum, reel, abs(radical), denum))
-
-if __name__ == "__main__":
+def main():
     ARGS = parseall()
     calc = Calculator()
     if ARGS.angle is not None:
@@ -66,4 +65,6 @@ if __name__ == "__main__":
     elif ARGS.quad is not None:
         calc.getzeros(ARGS.quad[0], ARGS.quad[1], ARGS.quad[2])
     elif ARGS.fraction is not None:
-        calc.getfraction(ARGS.fraction)
+        print(calc.getfraction(ARGS.fraction))
+if __name__ == "__main__":
+    main()
