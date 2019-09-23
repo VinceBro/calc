@@ -56,6 +56,9 @@ class Calculator():
         else:
             print("Zeros are complex and are : {} + √{}/{} i and {} - √{}/{} i".format(reel, abs(radical), denum, reel, abs(radical), denum))
 
+    def a_parmi_b(self, a, b):
+        return math.factorial(b)/(math.factorial(a)*(math.factorial(b-a)))
+
 
 def parseall():
     parser = argparse.ArgumentParser(description="Calculator")
@@ -66,6 +69,7 @@ def parseall():
     parser.add_argument("-cp", "--crossproduct",default=False,action='store_true', dest='cproduct', help='Calcule le produit vectoriel, prends des vecteurs en entrée')
     parser.add_argument("-q", "--quadratic",metavar = "Float", nargs='+',default=None, dest='quad',type=float,help="Calcule les zéros d'une fonction quadratique")
     parser.add_argument("-f", "--fraction",metavar="Float", default=None, dest='fraction', type=float, help="Calcule la fraction associée à un chiffre decimal")
+    parser.add_argument("-ab", "--abyb", metavar="Int", default=None,type=int, dest='abyb',nargs='+', help="Calcule a parmi b")
     return parser.parse_args()
 
 def main():
@@ -81,6 +85,8 @@ def main():
         print("Dot product between vector {} and vector {} is {}".format(ARGS.vector1, ARGS.vector2, calc.getdotproduct(ARGS.vector1, ARGS.vector2)))
     elif ARGS.cproduct is True and ARGS.vector1 is not None and ARGS.vector2 is not None:
         print("Cross product between vector {} and vector {} is {}".format(ARGS.vector1, ARGS.vector2, calc.getcrossproduct(ARGS.vector1, ARGS.vector2)))
+    elif ARGS.abyb is not None:
+        print(calc.a_parmi_b(ARGS.abyb[0], ARGS.abyb[1]))
 
 
 
