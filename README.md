@@ -21,4 +21,4 @@ The `-q` argument is used for quadratic equations where 3 parameters are used as
 
 Example : 
 * `calc -q 1 -1 2` will return the formatted quadratic equation `1.0x² - 2.0x + 1.0` and the formatted zeros `(x - 1.0) and (x - 1.0)`
-* `calc -q 1 -1 18` will return the formatted quadratic equation `1.0x² - 2.0x + 18.0` and the formatted zeros `(x - 1.0 + √68.0/2.0 i) and (x - 1.0 - √68.0/2.0 i)`
+* `calc -q 1 -1 18` will return the formatted quadratic equation `1.0x² - 2.0x + 18.0` and the complex formatted zeros `(x - 1.0 + √68.0/2.0 i) and (x - 1.0 - √68.0/2.0 i)`
