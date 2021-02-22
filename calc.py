@@ -33,8 +33,7 @@ class Calculator():
         self.text_colorizer = text_colorizer
         self.parser = parser
     def getfraction(self, decimal):
-        ratio = decimal.as_integer_ratio()
-        return f"{ratio[0]}/{ratio[1]}"
+        return f"Decimal {self.text_colorizer.colorize_blue(decimal)} \nIs equal to : {self.text_colorizer.colorize_green(str(Fraction(decimal)))}"
     def getcrossproduct(self, vector1, vector2):
         return numpy.cross(vector1, vector2)
     def getdotproduct(self, vector1, vector2):
@@ -194,7 +193,7 @@ def parseall(parser):
     parser.add_argument("-dp", "--dotproduct",default=False, action='store_true', dest='dproduct', help='Calcule le produit scalaire, prends des vecteurs en entrée')
     parser.add_argument("-cp", "--crossproduct",default=False,action='store_true', dest='cproduct', help='Calcule le produit vectoriel, prends des vecteurs en entrée')
     parser.add_argument("-q", "--quadratic", default=False, dest='quad',action='store_true',help="Calculates and formats the zeros of a quadratic equation in complex or non complex form")
-    parser.add_argument("-f", "--fraction",metavar="Float", default=None, dest='fraction', type=float, help="Calcule la fraction associée à un chiffre decimal")
+    parser.add_argument("-f", "--fraction", default=False, dest='fraction', action='store_true', help="Calcule la fraction associée à un chiffre decimal")
     parser.add_argument("-ab", "--abyb", metavar="Int", default=None,type=int, dest='abyb',nargs='+', help="Calcule a parmi b")
     return parser.parse_args()
 
@@ -207,7 +206,7 @@ def main():
     elif ARGS.quad:
         print(calc.getzeros(float(ARGS.operations[0]), float(ARGS.operations[1]), float(ARGS.operations[2])))
     elif ARGS.fraction:
-        print(calc.getfraction(ARGS.fraction))
+        print(calc.getfraction("".join(ARGS.operations)))
     elif ARGS.dproduct is True and ARGS.vector1 and ARGS.vector2:
         print("Dot product between vector {} and vector {} is {}".format(ARGS.vector1, ARGS.vector2, calc.getdotproduct(ARGS.vector1, ARGS.vector2)))
     elif ARGS.cproduct is True and ARGS.vector1 and ARGS.vector2:
