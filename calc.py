@@ -188,13 +188,8 @@ class ShuntingYardParser():
 def parseall(parser):
     parser.add_argument("operations", metavar="Operations", type=str, action='store', nargs='+')
     parser.add_argument("-a", "--angle", default=False, action='store_true', dest='angle', help="Treats input as angle and converts it to rad or deg accordingly. Input is treated as string so you can specify rad, deg and pi for your angles. rad or deg must be specified in input string")
-    parser.add_argument("-v1", "--vector1", metavar="Vector", default=None,type=float, dest='vector1',nargs='+', help="Composantes du premier vecteur")
-    parser.add_argument("-v2", "--vector2", metavar="Vector", default=None,type=float, dest='vector2',nargs='+', help="Composantes du deuxième vecteur")
-    parser.add_argument("-dp", "--dotproduct",default=False, action='store_true', dest='dproduct', help='Calcule le produit scalaire, prends des vecteurs en entrée')
-    parser.add_argument("-cp", "--crossproduct",default=False,action='store_true', dest='cproduct', help='Calcule le produit vectoriel, prends des vecteurs en entrée')
     parser.add_argument("-q", "--quadratic", default=False, dest='quad',action='store_true',help="Calculates and formats the zeros of a quadratic equation in complex or non complex form")
-    parser.add_argument("-f", "--fraction", default=False, dest='fraction', action='store_true', help="Calcule la fraction associée à un chiffre decimal")
-    parser.add_argument("-ab", "--abyb", metavar="Int", default=None,type=int, dest='abyb',nargs='+', help="Calcule a parmi b")
+    parser.add_argument("-f", "--fraction", default=False, dest='fraction', action='store_true', help="Calculates and generates a fraction from a float")
     return parser.parse_args()
 
 def main():
@@ -207,12 +202,6 @@ def main():
         print(calc.getzeros(float(ARGS.operations[0]), float(ARGS.operations[1]), float(ARGS.operations[2])))
     elif ARGS.fraction:
         print(calc.getfraction("".join(ARGS.operations)))
-    elif ARGS.dproduct is True and ARGS.vector1 and ARGS.vector2:
-        print("Dot product between vector {} and vector {} is {}".format(ARGS.vector1, ARGS.vector2, calc.getdotproduct(ARGS.vector1, ARGS.vector2)))
-    elif ARGS.cproduct is True and ARGS.vector1 and ARGS.vector2:
-        print("Cross product between vector {} and vector {} is {}".format(ARGS.vector1, ARGS.vector2, calc.getcrossproduct(ARGS.vector1, ARGS.vector2)))
-    elif ARGS.abyb:
-        print(calc.a_parmi_b(ARGS.abyb[0], ARGS.abyb[1]))
     elif ARGS.operations:
         print(calc.parsemathexpression("".join(ARGS.operations)))
 
